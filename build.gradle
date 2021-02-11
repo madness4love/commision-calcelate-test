@@ -1,23 +1,24 @@
-name: Kotlin CI with Gradle
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+}
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+group 'ru.netology'
+version '1.0-SNAPSHOT'
 
-jobs:
-  build:
+repositories {
+    mavenCentral()
+}
 
-    runs-on: ubuntu-latest
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation "junit:junit:4.12"
+}
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build --info
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
