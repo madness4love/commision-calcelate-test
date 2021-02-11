@@ -1,16 +1,23 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
-    id 'jacoco'
-}
+name: Kotlin CI with Gradle
 
-group 'ru.netology'
-version '1.0-SNAPSHOT'
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
-repositories {
-    mavenCentral()
-}
+jobs:
+  build:
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    testImplementation 'junit:junit:4.12'
-}
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build --info
