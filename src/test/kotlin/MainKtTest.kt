@@ -158,7 +158,7 @@ class MainKtTest {
     @Test
     fun getMonthLimit_cards() {
         val transferType = "Visa"
-        val expected = 60_000_00
+        val expected = 60_000_000
 
         val result = getMonthLimit(transferType)
 
